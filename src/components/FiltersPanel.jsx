@@ -19,24 +19,24 @@ export function FiltersPanel({
   }, [meses])
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-card">
+    <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-6 shadow-soft backdrop-blur-sm">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 className="text-lg font-semibold text-slate-900">Filtros</h2>
+        <h2 className="text-lg font-semibold text-white">Filtros</h2>
         <button
           type="button"
           disabled={isLoading}
           onClick={onRefresh}
-          className="rounded-md bg-brand-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-40"
+          className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-500 disabled:cursor-not-allowed disabled:opacity-50"
         >
           Atualizar dados
         </button>
       </div>
 
-      <div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-4 grid gap-4">
         <div>
-          <label className="text-sm font-medium text-slate-700">Empresa</label>
+          <label className="text-sm font-medium text-slate-200">Empresa</label>
           <select
-            className="mt-1 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
+            className="mt-1 w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 shadow-sm focus:border-brand-400 focus:outline-none focus:ring-1 focus:ring-brand-400"
             value={filters.empresa ?? ''}
             onChange={onInputChange('empresa')}
           >
@@ -49,9 +49,9 @@ export function FiltersPanel({
           </select>
         </div>
         <div>
-          <label className="text-sm font-medium text-slate-700">Categoria</label>
+          <label className="text-sm font-medium text-slate-200">Categoria</label>
           <select
-            className="mt-1 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
+            className="mt-1 w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 shadow-sm focus:border-brand-400 focus:outline-none focus:ring-1 focus:ring-brand-400"
             value={filters.categoria ?? ''}
             onChange={onInputChange('categoria')}
           >
@@ -64,9 +64,9 @@ export function FiltersPanel({
           </select>
         </div>
         <div>
-          <label className="text-sm font-medium text-slate-700">Mês</label>
+          <label className="text-sm font-medium text-slate-200">Mês</label>
           <select
-            className="mt-1 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
+            className="mt-1 w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 shadow-sm focus:border-brand-400 focus:outline-none focus:ring-1 focus:ring-brand-400"
             value={filters.mes ?? ''}
             onChange={onInputChange('mes')}
           >
@@ -80,20 +80,20 @@ export function FiltersPanel({
         </div>
 
         <div>
-          <label className="text-sm font-medium text-slate-700">Texto</label>
+          <label className="text-sm font-medium text-slate-200">Texto</label>
           <input
             type="text"
-            className="mt-1 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
+            className="mt-1 w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 shadow-sm placeholder:text-slate-500 focus:border-brand-400 focus:outline-none focus:ring-1 focus:ring-brand-400"
             placeholder="Descrição ou observação"
             value={filters.texto ?? ''}
             onChange={onInputChange('texto')}
           />
         </div>
         <div>
-          <label className="text-sm font-medium text-slate-700">Valor mínimo</label>
+          <label className="text-sm font-medium text-slate-200">Valor mínimo</label>
           <input
             type="number"
-            className="mt-1 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
+            className="mt-1 w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 shadow-sm placeholder:text-slate-500 focus:border-brand-400 focus:outline-none focus:ring-1 focus:ring-brand-400"
             value={filters.valorMin ?? ''}
             onChange={onInputChange('valorMin')}
             placeholder="0"
@@ -101,10 +101,10 @@ export function FiltersPanel({
           />
         </div>
         <div>
-          <label className="text-sm font-medium text-slate-700">Valor máximo</label>
+          <label className="text-sm font-medium text-slate-200">Valor máximo</label>
           <input
             type="number"
-            className="mt-1 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
+            className="mt-1 w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 shadow-sm placeholder:text-slate-500 focus:border-brand-400 focus:outline-none focus:ring-1 focus:ring-brand-400"
             value={filters.valorMax ?? ''}
             onChange={onInputChange('valorMax')}
             placeholder="0"
@@ -112,19 +112,19 @@ export function FiltersPanel({
           />
         </div>
 
-        <div className="md:col-span-2 lg:col-span-3">
-          <label className="text-sm font-medium text-slate-700">Período</label>
-          <div className="mt-1 flex flex-wrap gap-3">
+        <div>
+          <label className="text-sm font-medium text-slate-200">Período</label>
+          <div className="mt-1 flex flex-col gap-3">
             <input
               type="date"
-              className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
+              className="w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 shadow-sm focus:border-brand-400 focus:outline-none focus:ring-1 focus:ring-brand-400"
               value={filters.from ?? ''}
               onChange={onInputChange('from')}
               placeholder="De"
             />
             <input
               type="date"
-              className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
+              className="w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 shadow-sm focus:border-brand-400 focus:outline-none focus:ring-1 focus:ring-brand-400"
               value={filters.to ?? ''}
               onChange={onInputChange('to')}
               placeholder="Até"

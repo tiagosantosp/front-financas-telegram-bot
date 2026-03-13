@@ -54,9 +54,9 @@ export function MonthlyEvolutionChart({ data, isLoading }) {
   const { series, categories } = buildSeries(data)
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-card">
+    <div className="rounded-2xl card-bg border border-slate-800 p-5 shadow-soft">
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-slate-900">
+        <h2 className="text-lg font-semibold text-white">
           Evolução Mensal por Categoria
         </h2>
       </div>

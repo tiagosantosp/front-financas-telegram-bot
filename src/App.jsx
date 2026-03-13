@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { DashboardPage } from './pages/DashboardPage'
 import { DocumentsPage } from './pages/DocumentsPage'
 import { Layout } from './components/Layout'
+import { FiltersProvider } from './contexts/FiltersContext'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,14 +19,16 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<Layout />}> 
-            <Route index element={<DashboardPage />} />
-            <Route path="documents" element={<DocumentsPage />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <FiltersProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route index element={<DashboardPage />} />
+              <Route path="documents" element={<DocumentsPage />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </FiltersProvider>
     </QueryClientProvider>
   )
 }

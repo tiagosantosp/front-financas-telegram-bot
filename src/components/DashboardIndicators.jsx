@@ -39,10 +39,10 @@ export function DashboardIndicators({ data, isLoading }) {
         return (
           <div
             key={key}
-            className="rounded-2xl border border-slate-200 bg-white p-5 shadow-card"
+            className="rounded-2xl card-bg border border-slate-800 p-5 shadow-soft"
           >
-            <p className="text-sm font-medium text-slate-500">{label}</p>
-            <p className="mt-2 text-xl font-semibold text-slate-900">{formatted}</p>
+            <p className="text-sm font-medium text-slate-300">{label}</p>
+            <p className="mt-2 text-xl font-semibold text-white">{formatted}</p>
           </div>
         )
       })}

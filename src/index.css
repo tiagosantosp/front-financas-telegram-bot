@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 html,
@@ -12,7 +12,7 @@ body {
 }
 
 body {
-  @apply bg-slate-50 text-slate-900 antialiased;
+  @apply bg-gradient-to-br from-slate-950 via-night-900 to-indigo-950 text-slate-100 antialiased;
 }
 
 #root {
@@ -22,9 +22,14 @@ body {
 
 /* Custom utilities */
 .text-brand {
-  color: theme('colors.brand.600');
+  color: theme('colors.brand.300');
 }
 
 .shadow-card {
-  box-shadow: 0 1px 2px rgba(0,0,0,0.06), 0 4px 10px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.card-bg {
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(14px);
 }

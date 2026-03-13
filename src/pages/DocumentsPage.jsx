@@ -1,75 +1,56 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { useDocuments } from '../hooks/useDocuments'
-import { useFiltersOptions } from '../hooks/useFiltersOptions'
 import { downloadDocument } from '../api/documentsApi'
 import { Alert } from '../components/Alert'
 import { DocumentsTable } from '../components/DocumentsTable'
-import { FiltersPanel } from '../components/FiltersPanel'
-
-const INITIAL_FILTERS = {
-  empresa: '',
-  categoria: '',
-  mes: '',
-  texto: '',
-  valorMin: '',
-  valorMax: '',
-  from: '',
-  to: '',
-}
+import { useFiltersContext } from '../contexts/FiltersContext'
 
 export function DocumentsPage() {
-  const [filters, setFilters] = useState(INITIAL_FILTERS)
-  const [refreshKey, setRefreshKey] = useState(0)
+  const { filters, refreshKey } = useFiltersContext()
 
-  const { data: options, isLoading: isLoadingOptions, error: optionsError } =
-    useFiltersOptions()
+  const filtersForApi = useMemo(() => {
+    const clean = { ...filters }
+    Object.keys(clean).forEach((key) => {
+      if (clean[key] === '') delete clean[key]
+    })
+    return clean
+  }, [filters])
 
   const {
     data: documentsData,
     isLoading: isLoadingDocuments,
     error: documentsError,
   } = useDocuments({
-    filters: useMemo(() => filters, [filters]),
+    filters: filtersForApi,
     refresh: refreshKey,
   })
-
-  const errorMessage = optionsError?.message || documentsError?.message
-
-  const handleRefresh = () => {
-    setRefreshKey((key) => key + 1)
-  }
-
-  const handleDownload = async (fileName) => {
-    if (!fileName) return
-    try {
-      const url = await downloadDocument(fileName)
-      if (url) {
-        window.open(url, '_blank')
-      }
-    } catch (error) {
-      console.error('Falha ao baixar o arquivo', error)
-    }
-  }
 
   const documents = documentsData?.documents ?? []
 
   return (
     <div className="space-y-6">
-      <FiltersPanel
-        filters={filters}
-        onChange={setFilters}
-        onRefresh={handleRefresh}
-        options={options}
-        isLoading={isLoadingOptions || isLoadingDocuments}
-      />
+      {documentsError ? (
+        <Alert title="Erro ao carregar comprovantes" message={documentsError.message} />
+      ) : null}
 
-      {errorMessage ? <Alert title="Erro ao carregar comprovantes" message={errorMessage} /> : null}
-
-      <DocumentsTable
-        data={documents}
-        isLoading={isLoadingDocuments}
-        onDownload={handleDownload}
-      />
+      <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-4 shadow-soft backdrop-blur-sm">
+        <div className="mb-4 flex items-center justify-between gap-2">
+          <div>
+            <h2 className="text-lg font-semibold text-white">Comprovantes</h2>
+            <p className="text-sm text-slate-300">Resultados filtrados e download de comprovantes</p>
+          </div>
+          <p className="text-xs text-slate-400">{documents.length} registros</p>
+        </div>
+        <DocumentsTable
+          data={documents}
+          isLoading={isLoadingDocuments}
+          onDownload={async (fileName) => {
+            if (!fileName) return
+            const url = await downloadDocument(fileName)
+            if (url) window.open(url, '_blank')
+          }}
+        />
+      </div>
     </div>
   )
 }
